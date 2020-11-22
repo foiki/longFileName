@@ -14,7 +14,8 @@ printf("Unknown OS!")
 
 #define EXT4_SUPER_MAGIC      0xef53
 #define MSDOS_SUPER_MAGIC     0x4d44
-#define FUSE_SUPER_MAGIC 	  0x65735546
+#define EXFAT_SUPER_MAGIC     0x2011BAB0UL
+#define FUSE_SUPER_MAGIC      0x65735546
 #define NTFS_SB_MAGIC         0x5346544e
 #define HPFS_SUPER_MAGIC      0xf995e849
 #define BTRFS_SUPER_MAGIC     0x9123683e
@@ -26,7 +27,8 @@ const char *fsType2str(long type) {
     } table[] = {
         { EXT4_SUPER_MAGIC, "EXT4" },
         { MSDOS_SUPER_MAGIC, "FAT" },
-        { FUSE_SUPER_MAGIC, "exFAT" },
+        { EXFAT_SUPER_MAGIC, "exFAT"},
+        { FUSE_SUPER_MAGIC, "FUSE" },
         { NTFS_SB_MAGIC, "NTFS" },
         { HPFS_SUPER_MAGIC, "HPFS" },
         { BTRFS_SUPER_MAGIC, "BTRFS" },
