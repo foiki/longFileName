@@ -1,33 +1,35 @@
 gcc -o main  main.c
 
-sudo apt install btrfs-progs
-
 truncate --size=1G FAT.txt
 sudo mkfs.fat FAT.txt
 mkdir fat
-sudo mount FAT.txt fat
+sudo mount -t vfat FAT.txt fat
 
 truncate --size=1G exFAT.txt
+epm --auto install exfatprogs
 sudo mkfs.exfat exFAT.txt
 mkdir exFAT
-sudo mount exFAT.txt exFAT
+sudo mount -t exfat exFAT.txt exFAT
 
 truncate --size=1G ext4.txt
 sudo mkfs.ext4 ext4.txt
 mkdir ext4
-sudo mount ext4.txt ext4
+sudo mount -t ext4 ext4.txt ext4
 
 truncate --size=1G btrfs.txt
+epm --auto install btrfs-progs
 sudo mkfs.btrfs btrfs.txt
 mkdir btrfs
-sudo mount btrfs.txt btrfs
+sudo mount -t btrfs btrfs.txt btrfs
 
 truncate --size=1G ntfs.txt
+epm --auto install ntfs-3g
 blockDevice=`sudo losetup -f`
 sudo losetup $blockDevice ntfs.txt
 sudo mkntfs $blockDevice
 mkdir ntfs
-sudo mount $blockDevice ntfs
+epm --auto remove ntfs-3g
+sudo mount -t ntfs $blockDevice ntfs
 
 echo -e "\nFAT file system check:"
 ./main fat
