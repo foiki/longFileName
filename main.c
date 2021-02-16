@@ -19,6 +19,7 @@ printf("Unknown OS!")
 #define NTFS_SB_MAGIC         0x5346544e
 #define HPFS_SUPER_MAGIC      0xf995e849
 #define BTRFS_SUPER_MAGIC     0x9123683e
+#define ZFS_SUPER_MAGIC       0x2fc12fc1
 
 const char *fsType2str(long type) {
     static struct fsname {
@@ -32,6 +33,7 @@ const char *fsType2str(long type) {
         { NTFS_SB_MAGIC, "NTFS" },
         { HPFS_SUPER_MAGIC, "HPFS" },
         { BTRFS_SUPER_MAGIC, "BTRFS" },
+        { ZFS_SUPER_MAGIC, "ZFS" },
         { 0, NULL },
     };
     static char unknown[100];
