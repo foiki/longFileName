@@ -1,20 +1,13 @@
 + gcc -o main main.c
 + truncate --size=1G FAT.txt
 + sudo mkfs.fat FAT.txt
+[sudo] password for ilya: 
 mkfs.fat 4.1 (2017-01-24)
 + mkdir fat
 + sudo mount -t vfat FAT.txt fat
 + truncate --size=1G exFAT.txt
 + epm --auto install exfatprogs
  $ sudo -- apt-get -y --force-yes -o APT::Install::VirtualVersion=true -o APT::Install::Virtual=true -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold install exfatprogs
-Reading package lists... Done
-Building dependency tree       
-Reading state information... Done
-exfatprogs is already the newest version (1.0.4-1).
-The following package was automatically installed and is no longer required:
-  libntfs-3g883
-Use 'sudo apt autoremove' to remove it.
-0 upgraded, 0 newly installed, 0 to remove and 6 not upgraded.
 W: --force-yes is deprecated, use one of the options starting with --allow instead.
 + sudo mkfs.exfat exFAT.txt
 exfatprogs version : 1.0.4
@@ -36,7 +29,7 @@ exFAT format complete!
 mke2fs 1.45.6 (20-Mar-2020)
 Discarding device blocks: done                            
 Creating filesystem with 262144 4k blocks and 65536 inodes
-Filesystem UUID: 42da4741-6ddb-43ff-86b3-89a7a50d5b6f
+Filesystem UUID: 543f6c6e-27ef-4bd4-afe4-c30be716cf44
 Superblock backups stored on blocks: 
 	32768, 98304, 163840, 229376
 
@@ -50,21 +43,13 @@ Writing superblocks and filesystem accounting information: done
 + truncate --size=1G btrfs.txt
 + epm --auto install btrfs-progs
  $ sudo -- apt-get -y --force-yes -o APT::Install::VirtualVersion=true -o APT::Install::Virtual=true -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold install btrfs-progs
-Reading package lists... Done
-Building dependency tree       
-Reading state information... Done
-btrfs-progs is already the newest version (5.7-1).
-The following package was automatically installed and is no longer required:
-  libntfs-3g883
-Use 'sudo apt autoremove' to remove it.
-0 upgraded, 0 newly installed, 0 to remove and 6 not upgraded.
 W: --force-yes is deprecated, use one of the options starting with --allow instead.
 + sudo mkfs.btrfs btrfs.txt
 btrfs-progs v5.7 
 See http://btrfs.wiki.kernel.org for more information.
 
 Label:              (null)
-UUID:               17e31282-acd6-4229-9362-0e321e8c6872
+UUID:               536ce68d-2f5f-4f8f-8d40-d771b33012ef
 Node size:          16384
 Sector size:        4096
 Filesystem size:    1.00GiB
@@ -86,30 +71,14 @@ Devices:
 + truncate --size=1G ntfs3g.txt
 + epm --auto install ntfs-3g
  $ sudo -- apt-get -y --force-yes -o APT::Install::VirtualVersion=true -o APT::Install::Virtual=true -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold install ntfs-3g
-Reading package lists... Done
-Building dependency tree       
-Reading state information... Done
-The following NEW packages will be installed:
-  ntfs-3g
-0 upgraded, 1 newly installed, 0 to remove and 6 not upgraded.
-Need to get 0 B/387 kB of archives.
-After this operation, 1,544 kB of additional disk space will be used.
-Selecting previously unselected package ntfs-3g.
-(Reading database ... 191790 files and directories currently installed.)
-Preparing to unpack .../ntfs-3g_1%3a2017.3.23AR.3-3ubuntu2_amd64.deb ...
-Unpacking ntfs-3g (1:2017.3.23AR.3-3ubuntu2) ...
-Setting up ntfs-3g (1:2017.3.23AR.3-3ubuntu2) ...
-Processing triggers for man-db (2.9.3-2) ...
-Processing triggers for initramfs-tools (0.137ubuntu12) ...
-update-initramfs: Generating /boot/initrd.img-5.8.0-29-generic
 W: --force-yes is deprecated, use one of the options starting with --allow instead.
 ++ sudo losetup -f
-+ blockDevice3g=/dev/loop15
-+ sudo losetup /dev/loop15 ntfs3g.txt
-+ sudo mkntfs /dev/loop15
-The partition start sector was not specified for /dev/loop15 and it could not be obtained automatically.  It has been set to 0.
-The number of sectors per track was not specified for /dev/loop15 and it could not be obtained automatically.  It has been set to 0.
-The number of heads was not specified for /dev/loop15 and it could not be obtained automatically.  It has been set to 0.
++ blockDevice3g=/dev/loop17
++ sudo losetup /dev/loop17 ntfs3g.txt
++ sudo mkntfs /dev/loop17
+The partition start sector was not specified for /dev/loop17 and it could not be obtained automatically.  It has been set to 0.
+The number of sectors per track was not specified for /dev/loop17 and it could not be obtained automatically.  It has been set to 0.
+The number of heads was not specified for /dev/loop17 and it could not be obtained automatically.  It has been set to 0.
 Cluster size has been automatically set to 4096 bytes.
 To boot from a device, Windows needs the 'partition start sector', the 'sectors per track' and the 'number of heads' to be set.
 Windows will not be able to boot from this device.
@@ -117,15 +86,15 @@ Initializing device with zeroes: 100% - Done.
 Creating NTFS volume structures.
 mkntfs completed successfully. Have a nice day.
 + mkdir ntfs3g
-+ sudo mount -t ntfs /dev/loop15 ntfs3g
++ sudo mount -t ntfs /dev/loop17 ntfs3g
 + truncate --size=1G ntfs.txt
 ++ sudo losetup -f
-+ blockDevice=/dev/loop16
-+ sudo losetup /dev/loop16 ntfs.txt
-+ sudo mkntfs /dev/loop16
-The partition start sector was not specified for /dev/loop16 and it could not be obtained automatically.  It has been set to 0.
-The number of sectors per track was not specified for /dev/loop16 and it could not be obtained automatically.  It has been set to 0.
-The number of heads was not specified for /dev/loop16 and it could not be obtained automatically.  It has been set to 0.
++ blockDevice=/dev/loop18
++ sudo losetup /dev/loop18 ntfs.txt
++ sudo mkntfs /dev/loop18
+The partition start sector was not specified for /dev/loop18 and it could not be obtained automatically.  It has been set to 0.
+The number of sectors per track was not specified for /dev/loop18 and it could not be obtained automatically.  It has been set to 0.
+The number of heads was not specified for /dev/loop18 and it could not be obtained automatically.  It has been set to 0.
 Cluster size has been automatically set to 4096 bytes.
 To boot from a device, Windows needs the 'partition start sector', the 'sectors per track' and the 'number of heads' to be set.
 Windows will not be able to boot from this device.
@@ -135,13 +104,18 @@ mkntfs completed successfully. Have a nice day.
 + mkdir ntfs
 + epm --auto remove ntfs-3g
  $ sudo -- dpkg -P ntfs-3g
-(Reading database ... 191859 files and directories currently installed.)
-Removing ntfs-3g (1:2017.3.23AR.3-3ubuntu2) ...
-Purging configuration files for ntfs-3g (1:2017.3.23AR.3-3ubuntu2) ...
-Processing triggers for initramfs-tools (0.137ubuntu12) ...
-update-initramfs: Generating /boot/initrd.img-5.8.0-29-generic
-Processing triggers for man-db (2.9.3-2) ...
-+ sudo mount -t ntfs /dev/loop16 ntfs
++ sudo mount -t ntfs /dev/loop18 ntfs
++ truncate --size=1G zfs.txt
++ epm --auto install zfsutils-linux
+ $ sudo -- apt-get -y --force-yes -o APT::Install::VirtualVersion=true -o APT::Install::Virtual=true -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold install zfsutils-linux
+W: --force-yes is deprecated, use one of the options starting with --allow instead.
+++ sudo losetup -f
++ zfsBlock=/dev/loop19
++ sudo losetup /dev/loop19 zfs.txt
++ sudo zpool create -f zfsTestPool /dev/loop19
++ mkdir zfs
+++ pwd
++ sudo zfs set mountpoint=/home/ilya/Desktop/longFileName/zfs zfsTestPool
 + echo -e '\nFAT file system check:'
 
 FAT file system check:
@@ -200,7 +174,7 @@ tf_namelen: 255
 Maximum FileName length with Latin characters is: 255
 Maximum FileName length with Cyrillic characters is: 255
 + sudo umount ntfs3g
-+ sudo losetup -d /dev/loop15
++ sudo losetup -d /dev/loop17
 + rmdir ntfs3g
 + rm ntfs3g.txt
 + echo -e '\nntfs(read-only) file system check:'
@@ -213,6 +187,19 @@ tf_namelen: 255
 Maximum FileName length with Latin characters is: 0
 Maximum FileName length with Cyrillic characters is: 0
 + sudo umount ntfs
-+ sudo losetup -d /dev/loop16
++ sudo losetup -d /dev/loop18
 + rmdir ntfs
 + rm ntfs.txt
++ echo -e '\nzfs file system check:'
+
+zfs file system check:
++ ./main zfs
+tf_type: ZFS 0x2fc12fc1
+tf_namelen: 255
++ sudo bash testNameLength.sh
+Maximum FileName length with Latin characters is: 255
+Maximum FileName length with Cyrillic characters is: 127
++ sudo zpool destroy zfsTestPool
++ sudo losetup -d /dev/loop19
++ rmdir zfs
++ rm zfs.txt
