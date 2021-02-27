@@ -38,6 +38,14 @@ mkdir ntfs
 epm --auto remove ntfs-3g
 sudo mount -t ntfs $blockDevice ntfs
 
+truncate --size=1G zfs.txt
+epm --auto install zfsutils-linux > /dev/null
+zfsBlock=`sudo losetup -f`
+sudo losetup $zfsBlock zfs.txt
+sudo zpool create -f zfsTestPool $zfsBlock
+mkdir zfs
+sudo zfs set mountpoint=`pwd`/zfs zfsTestPool
+
 echo -e "\nFAT file system check:"
 ./main fat
 sudo bash testNameLength.sh fat
@@ -81,3 +89,12 @@ sudo umount ntfs
 sudo losetup -d $blockDevice
 rmdir ntfs
 rm ntfs.txt
+
+echo -e "\nzfs file system check:"
+./main zfs
+sudo bash testNameLength.sh
+sudo zpool destroy zfsTestPool
+sudo losetup -d $zfsBlock
+rmdir zfs
+rm zfs.txt
+
