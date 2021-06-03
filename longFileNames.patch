@@ -1,0 +1,87 @@
+diff --git a/fs/btrfs/ctree.h b/fs/btrfs/ctree.h
+index 0c8c55a41d7b..b7ede42cfa7e 100644
+--- a/fs/btrfs/ctree.h
++++ b/fs/btrfs/ctree.h
+@@ -70,7 +70,7 @@ struct btrfs_ref;
+  * we can actually store much bigger names, but lets not confuse the rest
+  * of linux
+  */
+-#define BTRFS_NAME_LEN 255
++#define BTRFS_NAME_LEN 1023
+ 
+ /*
+  * Theoretical limit is larger, but we keep this down to a sane
+diff --git a/fs/exfat/exfat_fs.h b/fs/exfat/exfat_fs.h
+index b8f0e829ecbd..8a51a77a273f 100644
+--- a/fs/exfat/exfat_fs.h
++++ b/fs/exfat/exfat_fs.h
+@@ -66,7 +66,7 @@ enum {
+ #define TYPE_ALL		0x0FFF
+ 
+ #define MAX_CHARSET_SIZE	6 /* max size of multi-byte character */
+-#define MAX_NAME_LENGTH		255 /* max len of file name excluding NULL */
++#define MAX_NAME_LENGTH		1023 /* max len of file name excluding NULL */
+ #define MAX_VFSNAME_BUF_SIZE	((MAX_NAME_LENGTH + 1) * MAX_CHARSET_SIZE)
+ 
+ /* Enough size to hold 256 dentry (even 512 Byte sector) */
+@@ -136,7 +136,7 @@ struct exfat_uni_name {
+ 	/* +3 for null and for converting */
+ 	unsigned short name[MAX_NAME_LENGTH + 3];
+ 	u16 name_hash;
+-	unsigned char name_len;
++	unsigned short name_len;
+ };
+ 
+ /* directory structure */
+diff --git a/fs/exfat/exfat_raw.h b/fs/exfat/exfat_raw.h
+index 7f39b1c6469c..f48b4bc169ea 100644
+--- a/fs/exfat/exfat_raw.h
++++ b/fs/exfat/exfat_raw.h
+@@ -12,7 +12,7 @@
+ #define EXBOOT_SIGNATURE	0xAA550000
+ #define STR_EXFAT		"EXFAT   "	/* size should be 8 */
+ 
+-#define EXFAT_MAX_FILE_LEN	255
++#define EXFAT_MAX_FILE_LEN	1023
+ 
+ #define VOLUME_DIRTY		0x0002
+ #define MEDIA_FAILURE		0x0004
+diff --git a/fs/ntfs/ntfs.h b/fs/ntfs/ntfs.h
+index e81376ea9152..5be9b837759e 100644
+--- a/fs/ntfs/ntfs.h
++++ b/fs/ntfs/ntfs.h
+@@ -26,7 +26,7 @@ typedef enum {
+ 	NTFS_BLOCK_SIZE		= 512,
+ 	NTFS_BLOCK_SIZE_BITS	= 9,
+ 	NTFS_SB_MAGIC		= 0x5346544e,	/* 'NTFS' */
+-	NTFS_MAX_NAME_LEN	= 255,
++	NTFS_MAX_NAME_LEN	= 1023,
+ 	NTFS_MAX_ATTR_NAME_LEN	= 255,
+ 	NTFS_MAX_CLUSTER_SIZE	= 64 * 1024,	/* 64kiB */
+ 	NTFS_MAX_PAGES_PER_CLUSTER = NTFS_MAX_CLUSTER_SIZE / PAGE_SIZE,
+diff --git a/include/uapi/linux/limits.h b/include/uapi/linux/limits.h
+index 6bcbe3068761..dec6d2be9148 100644
+--- a/include/uapi/linux/limits.h
++++ b/include/uapi/linux/limits.h
+@@ -9,7 +9,7 @@
+ #define LINK_MAX         127	/* # links a file may have */
+ #define MAX_CANON        255	/* size of the canonical input queue */
+ #define MAX_INPUT        255	/* size of the type-ahead buffer */
+-#define NAME_MAX         255	/* # chars in a file name */
++#define NAME_MAX        1023	/* # chars in a file name */
+ #define PATH_MAX        4096	/* # chars in a path name including nul */
+ #define PIPE_BUF        4096	/* # bytes in atomic write to a pipe */
+ #define XATTR_NAME_MAX   255	/* # chars in an extended attribute name */
+diff --git a/include/uapi/linux/msdos_fs.h b/include/uapi/linux/msdos_fs.h
+index a5773899f4d9..1bec6dc44adf 100644
+--- a/include/uapi/linux/msdos_fs.h
++++ b/include/uapi/linux/msdos_fs.h
+@@ -52,7 +52,7 @@
+ #define DELETED_FLAG	0xe5	/* marks file as deleted when in name[0] */
+ #define IS_FREE(n)	(!*(n) || *(n) == DELETED_FLAG)
+ 
+-#define FAT_LFN_LEN	255	/* maximum long name length */
++#define FAT_LFN_LEN	1023	/* maximum long name length */
+ #define MSDOS_NAME	11	/* maximum name length */
+ #define MSDOS_SLOTS	21	/* max # of slots for short and long names */
+ #define MSDOS_DOT	".          "	/* ".", padded to MSDOS_NAME chars */

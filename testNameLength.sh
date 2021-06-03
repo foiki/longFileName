@@ -1,17 +1,36 @@
 name="$1/a"
-size=0
-while truncate --size=16K $name 2>/dev/null
+size=1
+errCounter=0
+lastSuccess=0
+while [ $errCounter -le 3 ]
 do
+if (truncate --size=32K $name 2>/dev/null) 
+then
+errCounter=0
+lastSuccess=$size
+else 
+((errCounter++))
+fi
 name="${name}a"
-size=$((size+1))
+((size++))
 done
-echo "Maximum FileName length with Latin characters is: ${size}"
+echo "Maximum FileName length with Latin characters is: ${lastSuccess}"
 
 name="$1/ж"
-size=0
-while truncate --size=16K $name 2>/dev/null
+size=1
+errCounter=0
+lastSuccess=0
+while [ $errCounter -le 3 ]
 do
+if (truncate --size=32K $name 2>/dev/null) 
+then
+errCounter=0
+lastSuccess=$size
+else 
+((errCounter++))
+fi
 name="${name}ж"
-size=$((size+1))
+((size++))
 done
-echo "Maximum FileName length with Cyrillic characters is: ${size}"
+echo "Maximum FileName length with Cirillic characters is: ${lastSuccess}"
+

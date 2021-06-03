@@ -1,28 +1,30 @@
 gcc -o main  main.c
 
-truncate --size=1G FAT.txt
-sudo mkfs.fat FAT.txt
+fileSize=128M
+
+truncate --size=$fileSize FAT.txt
+sudo mkfs -t vfat -F 32 FAT.txt
 mkdir fat
 sudo mount -t vfat FAT.txt fat
 
-truncate --size=1G exFAT.txt
+truncate --size=$fileSize exFAT.txt
 epm --auto install exfatprogs > /dev/null
 sudo mkfs.exfat exFAT.txt
 mkdir exFAT
 sudo mount -t exfat exFAT.txt exFAT
 
-truncate --size=1G ext4.txt
+truncate --size=$fileSize ext4.txt
 sudo mkfs.ext4 ext4.txt
 mkdir ext4
 sudo mount -t ext4 ext4.txt ext4
 
-truncate --size=1G btrfs.txt
+truncate --size=$fileSize btrfs.txt
 epm --auto install btrfs-progs > /dev/null
 sudo mkfs.btrfs btrfs.txt
 mkdir btrfs
 sudo mount -t btrfs btrfs.txt btrfs
 
-truncate --size=1G ntfs3g.txt
+truncate --size=$fileSize ntfs3g.txt
 epm --auto install ntfs-3g > /dev/null
 blockDevice3g=`sudo losetup -f`
 sudo losetup $blockDevice3g ntfs3g.txt
@@ -30,7 +32,7 @@ sudo mkntfs $blockDevice3g
 mkdir ntfs3g
 sudo mount -t ntfs $blockDevice3g ntfs3g
 
-truncate --size=1G ntfs.txt
+truncate --size=$fileSize ntfs.txt
 blockDevice=`sudo losetup -f`
 sudo losetup $blockDevice ntfs.txt
 sudo mkntfs $blockDevice
@@ -38,7 +40,7 @@ mkdir ntfs
 epm --auto remove ntfs-3g > /dev/null
 sudo mount -t ntfs $blockDevice ntfs
 
-truncate --size=1G zfs.txt
+truncate --size=$fileSize zfs.txt
 epm --auto install zfsutils-linux > /dev/null
 zfsBlock=`sudo losetup -f`
 sudo losetup $zfsBlock zfs.txt
@@ -92,7 +94,7 @@ rm ntfs.txt
 
 echo -e "\nzfs file system check:"
 ./main zfs
-sudo bash testNameLength.sh
+sudo bash testNameLength.sh zfs
 sudo zpool destroy zfsTestPool
 sudo losetup -d $zfsBlock
 rmdir zfs
